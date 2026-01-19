@@ -1,0 +1,61 @@
+# Database Setup Guide & Documentation
+
+This document provides step-by-step instructions to set up the **ecom_lab** database on any server.
+
+## 1. Prerequisites
+- MySQL or MariaDB installed on the server.
+- Terminal/SSH access to the server.
+
+## 2. Fast Setup (Using the script)
+If you have the `new.sh` and `ecom_lab_full.sql` files on your server:
+
+1. Make the script executable:
+   ```bash
+   chmod +x new.sh
+   ```
+2. Run the script:
+   ```bash
+   ./new.sh
+   ```
+
+## 3. Manual Setup (Step-by-Step Commands)
+If you prefer to run the commands manually:
+
+### Step 1: Login to MySQL
+```bash
+mysql -u root -p
+```
+*(Enter your password `samjebas` when prompted)*
+
+### Step 2: Create the Database
+```sql
+CREATE DATABASE IF NOT EXISTS ecom_lab CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### Step 3: Import the Data
+Exit MySQL and run this from your terminal:
+```bash
+mysql -u root -p ecom_lab < ecom_lab_full.sql
+```
+
+## 4. Database Structure Overview
+The project uses the following tables:
+- **categories**: Product categories (e.g., Pipes, Fittings).
+- **materials**: Material types and their available grades.
+- **products**: Main product catalog.
+- **product_pricing**: Specific pricing based on material grade and size.
+- **enquiries**: Customer enquiry data from product pages.
+- **contact_messages**: General messages from the Contact Us form.
+
+## 5. Environment Configuration
+Ensure your `.env.local` files in both `packages/frontend` and `packages/backend` are updated:
+```env
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=ecom_lab
+DB_USER=root
+DB_PASSWORD=samjebas
+```
+
+---
+**Note:** Always keep a backup of your `ecom_lab_full.sql` file before making major changes.
